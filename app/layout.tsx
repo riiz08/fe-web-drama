@@ -34,7 +34,9 @@ export default function RootLayout({
 }) {
   return (
     <html suppressHydrationWarning lang="en">
-      <head />
+      <head>
+        <meta name="referrer" content="no-referrer-when-downgrade" />
+      </head>
       <body
         className={clsx(
           "min-h-screen bg-background font-sans antialiased",
