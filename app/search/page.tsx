@@ -19,7 +19,7 @@ const Page = () => {
   const fetchData = async (page: number) => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/api/v1/?search=${query}&page=${page}`
+        `${process.env.NEXT_PUBLIC_API}/api/v1/?page=${page}&search=${query}`
       );
       const json = await res.json();
       if (json.success) {
