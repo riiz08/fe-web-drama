@@ -4,17 +4,21 @@ import { Input } from "@heroui/input";
 import { SearchIcon } from "./icons";
 import { useRef } from "react";
 import { Button } from "@heroui/button";
+import { useRouter } from "next/navigation";
 
 const SearchInput = () => {
   const searchRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const handleValue = () => {
     const value = searchRef.current?.value.trim();
     if (!value) {
       console.log("Input kosong, tidak melakukan aksi.");
       return;
+    } else {
+      const encoded = value.replace(/ /g, "+");
+      return router.push(`/search?q=${encoded}`);
     }
-    alert(searchRef.current?.value);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -24,8 +28,10 @@ const SearchInput = () => {
         // Kosong atau hanya spasi
         console.log("Input kosong, tidak melakukan aksi.");
         return;
+      } else {
+        const encoded = value.replace(/ /g, "+");
+        return router.push(`/search?q=${encoded}`);
       }
-      alert(`Kamu menekan Enter! Isi input: ${value}`);
     }
   };
 

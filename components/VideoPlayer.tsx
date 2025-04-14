@@ -10,7 +10,7 @@ interface FilemoonPlayerProps {
 
 const FilemoonPlayer: React.FC<FilemoonPlayerProps> = ({ src, title }) => {
   return (
-    <div className="w-full aspect-video">
+    <div className="aspect-video md:w-10/12">
       <Suspense fallback={<AnimateLoading />}>
         <iframe
           src={src}
