@@ -8,7 +8,8 @@ import { Providers } from "./providers";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
-import Script from "next/script"; // Importing Script component
+import AdsterraAntiAdblock from "@/components/AdsterraAntiAdblock";
+import AdsterraNative from "@/components/AdsterraNative";
 
 export const metadata: Metadata = {
   title: {
@@ -37,16 +38,6 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en">
       <head>
         <meta name="referrer" content="no-referrer-when-downgrade" />
-        <Script
-          strategy="beforeInteractive" // or "lazyOnload" depending on the script
-          src="//pl26373936.profitableratecpm.com/b2/5a/35/b25a352547c63a8a406bc8114678a2e3.js"
-        />
-        <Script
-          strategy="beforeInteractive"
-          async={false}
-          data-cfasync="false"
-          src="//pl26374070.profitableratecpm.com/aebe990fb5438a745c69d6f8f1cb32a9/invoke.js"
-        />
       </head>
       <body
         className={clsx(
@@ -58,9 +49,10 @@ export default function RootLayout({
           <div className="relative flex flex-col h-screen">
             <Navbar />
             <main className="container mx-auto max-w-7xl  px-6 flex-grow">
-              <div id="container-aebe990fb5438a745c69d6f8f1cb32a9"></div>
               {children}
             </main>
+            <AdsterraAntiAdblock />
+            <AdsterraNative />
             <footer className="w-full flex items-center justify-center py-3">
               <Link
                 isExternal
@@ -69,7 +61,7 @@ export default function RootLayout({
                 title="Github Riiz"
               >
                 <span className="text-default-600">Powered by</span>
-                <p className="text-primary">MangEakkk Drama</p>
+                <p className="text-primary">MangEakkk</p>
               </Link>
             </footer>
           </div>
