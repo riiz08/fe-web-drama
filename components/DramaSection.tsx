@@ -7,6 +7,7 @@ import DramaList from "./DramaList"; // Impor lokal
 import AnimateLoading from "./AnimateLoading";
 import RecentPost from "./RecentPost";
 import Heading from "./Heading";
+import AdsterraNative from "./AdsterraNative";
 
 interface Drama {
   title: string;
@@ -78,6 +79,7 @@ const DramaSection = () => {
           onChange={handlePageChange}
         />
       </div>
+      <AdsterraNative />
       <Heading title="Recent Post" />
       <RecentPost recentPost={recent} />
     </Suspense>

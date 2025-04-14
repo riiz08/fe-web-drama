@@ -1,3 +1,5 @@
+import AdsterraAntiAdblock from "@/components/AdsterraAntiAdblock";
+import AdsterraNative from "@/components/AdsterraNative";
 import Breadcrumb from "@/components/Breadcrumb";
 import DramaList from "@/components/DramaList";
 import Heading from "@/components/Heading";
@@ -20,8 +22,10 @@ export default async function Page({
 
   return (
     <section>
+      <AdsterraAntiAdblock />
       <Breadcrumb />
       <div>
+        <AdsterraNative />
         <h1 className="text-xl md:text-2xl font-bold ml-2 my-2">
           {drama.episodeTitle}
         </h1>
