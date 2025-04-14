@@ -1,5 +1,3 @@
-"use client";
-
 import { Suspense, useEffect, useState } from "react"; // Eksternal pertama
 import { useSearchParams, useRouter } from "next/navigation"; // Eksternal kedua
 import { Pagination } from "@heroui/pagination"; // Eksternal - pastikan setelah external modules
@@ -7,7 +5,7 @@ import DramaList from "./DramaList"; // Impor lokal
 import AnimateLoading from "./AnimateLoading";
 import RecentPost from "./RecentPost";
 import Heading from "./Heading";
-import AdsterraNative from "./AdsterraNative";
+import NativeAdsterra from "./AdsterraNative";
 
 interface Drama {
   title: string;
@@ -79,7 +77,7 @@ const DramaSection = () => {
           onChange={handlePageChange}
         />
       </div>
-      <AdsterraNative />
+      <NativeAdsterra />
       <Heading title="Recent Post" />
       <RecentPost recentPost={recent} />
     </Suspense>

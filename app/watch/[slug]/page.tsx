@@ -1,5 +1,7 @@
-import AdsterraAntiAdblock from "@/components/AdsterraAntiAdblock";
+"use client";
+
 import AdsterraNative from "@/components/AdsterraNative";
+import Banner from "@/components/Banner";
 import Breadcrumb from "@/components/Breadcrumb";
 import DramaList from "@/components/DramaList";
 import Heading from "@/components/Heading";
@@ -22,7 +24,6 @@ export default async function Page({
 
   return (
     <section>
-      <AdsterraAntiAdblock />
       <Breadcrumb />
       <div>
         <AdsterraNative />
@@ -32,6 +33,7 @@ export default async function Page({
         <div className="p-4 w-full justify-center items-center flex">
           <FilemoonPlayer src={drama.video} title={drama.episodeTitle} />
         </div>
+        <Banner />
       </div>
       <div>
         <Heading title="Related Post" />

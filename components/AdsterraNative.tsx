@@ -1,24 +1,32 @@
-// app/components/AdsterraNative.tsx
-"use client";
+import { useEffect, useRef } from "react";
 
-import { useEffect } from "react";
+export default function NativeAdsterra(): JSX.Element {
+  const containerId = "container-aebe990fb5438a745c69d6f8f1cb32a9";
+  const adRef = useRef<HTMLDivElement | null>(null);
 
-const AdsterraNative = () => {
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "//comelysouthbuilds.com/aebe990fb5438a745c69d6f8f1cb32a9/invoke.js";
-    script.async = true;
-    script.setAttribute("data-cfasync", "false");
-    document.body.appendChild(script);
+    if (adRef.current && !document.getElementById(containerId)) {
+      const container = document.createElement("div");
+      container.id = containerId;
+      adRef.current.appendChild(container);
+
+      const script = document.createElement("script");
+      script.src =
+        "//comelysouthbuilds.com/aebe990fb5438a745c69d6f8f1cb32a9/invoke.js";
+      script.async = true;
+      script.setAttribute("data-cfasync", "false");
+
+      adRef.current.appendChild(script);
+    }
+
+    return () => {
+      if (adRef.current) {
+        adRef.current.innerHTML = "";
+      }
+    };
   }, []);
 
   return (
-    <div
-      id="container-aebe990fb5438a745c69d6f8f1cb32a9"
-      style={{ width: "100%", textAlign: "center", margin: "20px 0" }}
-    />
+    <div ref={adRef} className="w-full flex justify-center items-center my-5" />
   );
-};
-
-export default AdsterraNative;
+}
