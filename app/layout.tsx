@@ -36,6 +36,15 @@ export default function RootLayout({
     <html suppressHydrationWarning lang="en">
       <head>
         <meta name="referrer" content="no-referrer-when-downgrade" />
+        <script
+          type="text/javascript"
+          src="//pl26373936.profitableratecpm.com/b2/5a/35/b25a352547c63a8a406bc8114678a2e3.js"
+        ></script>
+        <script
+          async={false}
+          data-cfasync="false"
+          src="//pl26374070.profitableratecpm.com/aebe990fb5438a745c69d6f8f1cb32a9/invoke.js"
+        ></script>
       </head>
       <body
         className={clsx(
@@ -47,6 +56,7 @@ export default function RootLayout({
           <div className="relative flex flex-col h-screen">
             <Navbar />
             <main className="container mx-auto max-w-7xl  px-6 flex-grow">
+              <div id="container-aebe990fb5438a745c69d6f8f1cb32a9"></div>
               {children}
             </main>
             <footer className="w-full flex items-center justify-center py-3">
