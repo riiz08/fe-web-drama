@@ -26,7 +26,7 @@ const DramaList: React.FC<DramaListProps> = ({ dramas }) => {
             className="cursor-pointer"
             href={`/watch/${drama.slug}`}
           >
-            <Card className="py-4 max-w-[295px] max-h-52 group relative overflow-hidden">
+            <Card className="py-4 w-80 md:max-w-[295px] max-h-52 group relative overflow-hidden">
               <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                 <p className="text-tiny uppercase font-bold">{drama.title}</p>
                 <small className="text-default-500">{drama.date}</small>

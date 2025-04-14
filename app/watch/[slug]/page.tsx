@@ -1,5 +1,3 @@
-"use client";
-
 import AdsterraNative from "@/components/AdsterraNative";
 import Banner from "@/components/Banner";
 import Breadcrumb from "@/components/Breadcrumb";
