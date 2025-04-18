@@ -2,17 +2,16 @@ import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import clsx from "clsx";
 import { Providers } from "./providers";
-import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import { Link } from "@heroui/link";
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    default: "MangEakkk - Tonton Drama Melayu",
+    template: "%s | MangEakkk",
   },
-  description: siteConfig.description,
+  description: "Tonton semua drama Melayu terkini secara percuma dan cepat.",
   icons: {
     icon: "/favicon.ico",
   },

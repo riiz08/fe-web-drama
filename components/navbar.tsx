@@ -36,7 +36,7 @@ export const Navbar = () => {
               <NextLink
                 className={clsx(
                   linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
+                  "data-[active=true]:text-primary data-[active=true]:font-medium"
                 )}
                 color="foreground"
                 href={item.href}
@@ -52,7 +52,8 @@ export const Navbar = () => {
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="hidden lg:flex">
+        <NavbarItem className="hidden lg:flex gap-2">
+          <ThemeSwitch />
           <Suspense>{<SearchInput />}</Suspense>
         </NavbarItem>
       </NavbarContent>

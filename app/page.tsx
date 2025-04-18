@@ -2,9 +2,7 @@
 
 import AdsterraBanner728x90 from "@/components/AdsterraBanner728x90";
 import AnimateLoading from "@/components/AnimateLoading";
-import Banner from "@/components/Banner";
 import DramaSection from "@/components/DramaSection";
-import Heading from "@/components/Heading";
 import Script from "next/script";
 import { Suspense } from "react";
 
@@ -18,8 +16,6 @@ export default function Home() {
       />
       {/* Iklan Banner Adsterra */}
       <AdsterraBanner728x90 />
-      <Banner />
-      <Heading title="Terbaru" />
       <Suspense fallback={<AnimateLoading />}>
         <DramaSection />
       </Suspense>

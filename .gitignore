@@ -34,3 +34,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+
+# Optional: jika kamu pakai environments khusus
+.env.local
+.env.development
+.env.production
+.env.test
