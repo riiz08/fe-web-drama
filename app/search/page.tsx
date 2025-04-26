@@ -1,12 +1,15 @@
 "use client";
 
+import AnimateLoading from "@/components/AnimateLoading";
 import SearchClient from "@/components/SearchClient";
 import { Suspense } from "react";
 
-export default function SearchPage() {
+const SearchPage = () => {
   return (
-    <Suspense>
+    <Suspense fallback={<AnimateLoading />}>
       <SearchClient />
     </Suspense>
   );
-}
+};
+
+export default SearchPage;

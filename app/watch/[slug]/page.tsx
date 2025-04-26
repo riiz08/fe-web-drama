@@ -8,8 +8,9 @@ import { Button } from "@heroui/button";
 import { Card, CardBody } from "@heroui/card";
 import VideoPlayer from "@/components/VideoPlayer";
 import AdsterraSocialBar from "@/components/AdsterraSocialBar";
-import NativeAdsterra from "@/components/AdsterraNative";
 import AdsterraPopUnder from "@/components/AdsterraPopUnder";
+import AdsterraBanner728x90 from "@/components/AdsterraBanner728x90";
+import DramaCard from "@/components/DramaDetailCard";
 
 interface Episode {
   id: string;
@@ -19,6 +20,19 @@ interface Episode {
   publishedAt: string;
 }
 
+interface Drama {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  tarikhTayangan: string;
+  waktuSiaran: string;
+  rangkaian: string;
+  pengarah: string;
+  produksi: string;
+}
+
 export default function Watch() {
   const { slug } = useParams();
   const router = useRouter();
@@ -26,6 +40,7 @@ export default function Watch() {
   const [episode, setEpisode] = useState<Episode | null>(null);
   const [nextEpisode, setNextEpisode] = useState<Episode | null>(null);
   const [prevEpisode, setPrevEpisode] = useState<Episode | null>(null);
+  const [drama, setDrama] = useState<Drama | null>(null);
 
   useEffect(() => {
     async function fetchEpisode() {
@@ -37,12 +52,14 @@ export default function Watch() {
       setEpisode(data.episode);
       setNextEpisode(data.nextEpisode);
       setPrevEpisode(data.prevEpisode);
+      setDrama(data.drama);
     }
 
     if (slug) fetchEpisode();
   }, [slug]);
 
   if (!episode) return <AnimateLoading />;
+  if (!drama) return <AnimateLoading />;
 
   return (
     <div>
@@ -98,7 +115,9 @@ export default function Watch() {
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
-        <NativeAdsterra />
+        <DramaCard drama={drama} />
+        <AdsterraBanner728x90 />
+        <AdsterraSocialBar />
       </div>
     </div>
   );

@@ -14,12 +14,7 @@ const AdsterraSocialBar = () => {
     };
   }, []);
 
-  return (
-    <div className="social-bar">
-      {/* You can style this container */}
-      <div className="py-4 text-center mb-5"></div>
-    </div>
-  );
+  return <div className="social-bar">{/* You can style this container */}</div>;
 };
 
 export default AdsterraSocialBar;
