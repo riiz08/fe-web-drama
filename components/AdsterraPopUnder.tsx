@@ -1,31 +1,28 @@
-// components/PopUnder.tsx
+import { useEffect, useRef } from "react";
 
-import { useEffect } from "react";
+const AdsterraPopUnder = () => {
+  const triggeredRef = useRef(false);
 
-interface PopUnderProps {
-  onVideoPlayed: boolean;
-}
-
-const AdsterraPopUnder: React.FC<PopUnderProps> = ({ onVideoPlayed }) => {
   useEffect(() => {
-    if (onVideoPlayed) {
+    const handleClick = () => {
+      if (triggeredRef.current) return;
+      triggeredRef.current = true;
+
       const script = document.createElement("script");
       script.src =
         "//comelysouthbuilds.com/b2/5a/35/b25a352547c63a8a406bc8114678a2e3.js";
       script.async = true;
       document.body.appendChild(script);
 
-      // Clean up script when component unmounts
-      return () => {
-        const existingScript = document.querySelector(
-          'script[src="//comelysouthbuilds.com/b2/5a/35/b25a352547c63a8a406bc8114678a2e3.js"]'
-        );
-        if (existingScript) {
-          document.body.removeChild(existingScript);
-        }
-      };
-    }
-  }, [onVideoPlayed]);
+      document.removeEventListener("click", handleClick);
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
 
   return null;
 };

@@ -26,7 +26,6 @@ export default function Watch() {
   const [episode, setEpisode] = useState<Episode | null>(null);
   const [nextEpisode, setNextEpisode] = useState<Episode | null>(null);
   const [prevEpisode, setPrevEpisode] = useState<Episode | null>(null);
-  const [isVideoPlayed, setIsVideoPlayed] = useState(false); // State to track video play
 
   useEffect(() => {
     async function fetchEpisode() {
@@ -43,23 +42,12 @@ export default function Watch() {
     if (slug) fetchEpisode();
   }, [slug]);
 
-  useEffect(() => {
-    const hasWatchedBefore = localStorage.getItem("hasWatchedVideo");
-
-    if (!hasWatchedBefore) {
-      localStorage.setItem("hasWatchedVideo", "true");
-    }
-  }, []);
-
   if (!episode) return <AnimateLoading />;
-
-  const handleVideoPlay = () => {
-    setIsVideoPlayed(true); // Mark video as played
-  };
 
   return (
     <div>
       <AdsterraSocialBar />
+      <AdsterraPopUnder />
       <div className="p-4 max-w-5xl min-h-screen mx-auto">
         <Button
           variant="ghost"
@@ -73,10 +61,7 @@ export default function Watch() {
         <Card className="mb-4">
           <CardBody className="p-2 md:p-4">
             <div className="aspect-video w-full">
-              <VideoPlayer
-                src={episode.videoSrc}
-                onPlay={handleVideoPlay} // Trigger video play event
-              />
+              <VideoPlayer src={episode.videoSrc} />
             </div>
           </CardBody>
         </Card>
@@ -113,12 +98,8 @@ export default function Watch() {
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
-
         <NativeAdsterra />
       </div>
-
-      {/* PopUnder component will show only after video is played */}
-      {isVideoPlayed && <AdsterraPopUnder onVideoPlayed={true} />}
     </div>
   );
 }

@@ -1,4 +1,3 @@
-// components/VideoPlayer.tsx
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -8,10 +7,9 @@ import "video.js/dist/video-js.css";
 
 type Props = {
   src: string;
-  onPlay?: () => void; // Menambahkan properti onPlay
 };
 
-const VideoPlayer = ({ src, onPlay }: Props) => {
+const VideoPlayer = ({ src }: Props) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<any>(null);
   const hlsRef = useRef<Hls | null>(null);
@@ -21,7 +19,6 @@ const VideoPlayer = ({ src, onPlay }: Props) => {
 
     if (!videoElement || typeof window === "undefined") return;
 
-    // pastikan dijalankan saat DOM benar-benar siap
     const initializePlayer = () => {
       if (!playerRef.current) {
         playerRef.current = videojs(videoElement, {
@@ -40,21 +37,14 @@ const VideoPlayer = ({ src, onPlay }: Props) => {
         });
 
         hlsRef.current = hls;
-
         const playlistUrl = `${process.env.NEXT_PUBLIC_API}/api/v1/proxy?url=${encodeURIComponent(src)}`;
         hls.loadSource(playlistUrl);
         hls.attachMedia(videoElement);
       } else {
         videoElement.src = src;
       }
-
-      // Menambahkan event listener untuk memanggil onPlay saat video mulai diputar
-      videoElement.addEventListener("play", () => {
-        if (onPlay) onPlay(); // Memanggil fungsi onPlay ketika video diputar
-      });
     };
 
-    // Gunakan requestAnimationFrame untuk delay sampai DOM ready
     const raf = requestAnimationFrame(() => {
       initializePlayer();
     });
@@ -67,7 +57,7 @@ const VideoPlayer = ({ src, onPlay }: Props) => {
       playerRef.current?.dispose();
       playerRef.current = null;
     };
-  }, [src, onPlay]);
+  }, [src]);
 
   return (
     <div data-vjs-player className="flex justify-center">
