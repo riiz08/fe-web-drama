@@ -5,6 +5,9 @@ const nextConfig = {
       {
         hostname: "blogger.googleusercontent.com",
       },
+      {
+        hostname: "heroui.com",
+      },
     ],
   },
 };

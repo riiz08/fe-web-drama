@@ -5,23 +5,18 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 };
 
 export type DramaItem = {
+  slug: string;
   title: string;
+  description: string;
   thumbnail: string;
-  slug: string;
-  dateTime: string | null;
-};
-
-export type TrendingItem = {
-  title: string;
-  slug: string;
+  tarikhTayangan: string;
+  waktuSiaran: string;
+  rangkaian: string;
+  pengarah: string;
+  produksi: string;
 };
 
 export type DramaApiResponse = {
   success: boolean;
-  data: {
-    currentPage: number;
-    totalPage: number;
-    drama: DramaItem[];
-  };
-  trending: TrendingItem[];
+  data: DramaItem[];
 };

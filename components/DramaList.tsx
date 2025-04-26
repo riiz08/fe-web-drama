@@ -3,16 +3,28 @@
 import { Card, CardFooter } from "@heroui/card";
 import Image from "next/image";
 import AnimateLoading from "./AnimateLoading";
-import { DramaItem } from "@/types";
 import { PlayCircle } from "lucide-react";
 
+interface DramaProps {
+  slug: string;
+  title: string;
+  episodeNum: string;
+  publishedAt: string;
+  videoSrc: string;
+  drama: {
+    title: string;
+    slug: string;
+    thumbnail: string;
+  };
+}
+
 interface DramaListProps {
-  dramas: DramaItem[];
+  dramas: DramaProps[];
 }
 
 const DramaList: React.FC<DramaListProps> = ({ dramas }) => {
   return (
-    <div className="grid grid-cols-2 gap-2 md:grid-cols-5 lg:grid-cols-7 md:gap-4 place-items-center my-4 bg-default py-4 px-4 rounded-lg">
+    <div className="grid grid-cols-2 gap-3 md:grid-cols-5 lg:grid-cols-7 md:gap-4 place-items-center my-4 bg-default-50 py-4 px-4 rounded-lg">
       {dramas.length > 0 ? (
         dramas.map((drama) => (
           <a href={`/watch/${drama.slug}`} key={drama.slug}>
@@ -22,8 +34,9 @@ const DramaList: React.FC<DramaListProps> = ({ dramas }) => {
                   alt={drama.title}
                   className="object-cover h-52 w-44"
                   height={200}
-                  src={drama.thumbnail}
+                  src={drama.drama.thumbnail}
                   width={200}
+                  priority
                 />
 
                 {/* Play icon - muncul saat hover */}

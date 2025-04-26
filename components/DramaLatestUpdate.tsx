@@ -1,21 +1,22 @@
-import { Suspense, useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import Heading from "./Heading";
 import DramaList from "./DramaList";
 import AnimateLoading from "./AnimateLoading";
-import { DramaApiResponse, DramaItem } from "@/types";
 
 const DramaLatestUpdate = () => {
-  const [dramas, setDramas] = useState<DramaItem[]>([]);
+  const [dramas, setDramas] = useState([]);
 
   const fetchData = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/api/v1/latest-update`
+        `${process.env.NEXT_PUBLIC_API}/api/v1/dramas/latest-update`
       );
-      const json: DramaApiResponse = await res.json();
+      const json = await res.json();
 
       if (json.success) {
-        setDramas(json.data.drama);
+        setDramas(json.data.episodes);
       }
     } catch (error) {
       console.log(error);
@@ -27,12 +28,12 @@ const DramaLatestUpdate = () => {
     fetchData();
   }, []);
 
+  if (dramas.length < 1) return <AnimateLoading />;
+
   return (
     <>
-      <Suspense fallback={<AnimateLoading />}>
-        <Heading title="Terbaru" />
-        <DramaList dramas={dramas} />
-      </Suspense>
+      <Heading text="Baru Saja Ditambahkan" />
+      <DramaList dramas={dramas} />
     </>
   );
 };
