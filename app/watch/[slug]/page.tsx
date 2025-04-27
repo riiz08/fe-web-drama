@@ -8,7 +8,6 @@ import { Button } from "@heroui/button";
 import { Card, CardBody } from "@heroui/card";
 import VideoPlayer from "@/components/VideoPlayer";
 import AdsterraSocialBar from "@/components/AdsterraSocialBar";
-import AdsterraPopUnder from "@/components/AdsterraPopUnder";
 import AdsterraBanner728x90 from "@/components/AdsterraBanner728x90";
 import DramaCard from "@/components/DramaDetailCard";
 
@@ -64,7 +63,6 @@ export default function Watch() {
   return (
     <div>
       <AdsterraSocialBar />
-      <AdsterraPopUnder />
       <div className="p-4 max-w-5xl min-h-screen mx-auto">
         <Button
           variant="ghost"
