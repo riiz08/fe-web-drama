@@ -16,13 +16,22 @@ interface PaginationProps {
 const DramaLatestUpdate = () => {
   const [dramas, setDramas] = useState([]);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
-  const [pagination, setPagination] = useState<PaginationProps | null>(null);
+  const [pagination, setPagination] = useState<PaginationProps>({
+    page: 1,
+    limit: 6, // default
+    total: 0,
+    totalPages: 0,
+  });
 
   useEffect(() => {
-    // Jalankan hanya di client
     if (typeof window !== "undefined") {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
+      // Atur limit sesuai device
+      setPagination((prev) => ({
+        ...prev,
+        limit: mobile ? 6 : 14,
+      }));
     }
   }, []);
 
@@ -32,7 +41,7 @@ const DramaLatestUpdate = () => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API}/api/v1/dramas/latest-update?limit=${isMobile ? 6 : 14}`
+          `${process.env.NEXT_PUBLIC_API}/api/v1/dramas/latest-update?page=${pagination.page}&limit=${pagination.limit}`
         );
         const json = await res.json();
 
@@ -46,7 +55,14 @@ const DramaLatestUpdate = () => {
     };
 
     fetchData();
-  }, [isMobile]);
+  }, [pagination.page, pagination.limit, isMobile]);
+
+  const handlePageChange = (newPage: number) => {
+    setPagination((prev) => ({
+      ...prev,
+      page: newPage,
+    }));
+  };
 
   if (isMobile === null || dramas.length < 1) return <AnimateLoading />;
 
@@ -54,14 +70,13 @@ const DramaLatestUpdate = () => {
     <>
       <Heading text="Baru Saja Ditambahkan" />
       <DramaList dramas={dramas} />
-      {pagination !== null ? (
+      {pagination.totalPages > 1 && (
         <Pagination
           initialPage={pagination.page}
           total={pagination.totalPages}
+          onChange={handlePageChange}
           className="my-4"
         />
-      ) : (
-        ""
       )}
     </>
   );

@@ -5,6 +5,7 @@ import { Providers } from "./providers";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import { Link } from "@heroui/link";
+import ButtonTele from "@/components/ButtonTele";
 
 export const metadata: Metadata = {
   title: {
@@ -44,6 +45,7 @@ export default function RootLayout({
           <Navbar />
           <main className="container mx-auto max-w-7xl  px-6 flex-grow">
             {children}
+            <ButtonTele />
           </main>
           <footer className="w-full flex items-center justify-center py-3">
             <Link
