@@ -4,6 +4,7 @@ import { Card, CardFooter } from "@heroui/card";
 import Image from "next/image";
 import AnimateLoading from "./AnimateLoading";
 import { PlayCircle } from "lucide-react";
+import Link from "next/link";
 
 interface DramaProps {
   slug: string;
@@ -27,7 +28,7 @@ const DramaList: React.FC<DramaListProps> = ({ dramas }) => {
     <div className="grid grid-cols-2 gap-3 md:grid-cols-5 lg:grid-cols-7 md:gap-4 place-items-center my-4 bg-default-50 py-4 px-4 rounded-lg">
       {dramas.length > 0 ? (
         dramas.map((drama) => (
-          <a href={`/watch/${drama.slug}`} key={drama.slug}>
+          <Link prefetch={false} href={`/watch/${drama.slug}`} key={drama.slug}>
             <div className="relative group w-fit">
               <Card isFooterBlurred className="border-none" radius="lg">
                 <Image
@@ -51,7 +52,7 @@ const DramaList: React.FC<DramaListProps> = ({ dramas }) => {
                 </CardFooter>
               </Card>
             </div>
-          </a>
+          </Link>
         ))
       ) : (
         <AnimateLoading />

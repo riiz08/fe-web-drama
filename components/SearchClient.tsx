@@ -7,6 +7,7 @@ import Image from "next/image";
 import Heading from "@/components/Heading";
 import AnimateLoading from "@/components/AnimateLoading";
 import AdsterraSocialBar from "@/components/AdsterraSocialBar";
+import Link from "next/link";
 
 export default function SearchClient() {
   const searchParams = useSearchParams();
@@ -36,7 +37,7 @@ export default function SearchClient() {
       <div className="flex justify-start mt-4 min-h-screen items-start flex-wrap">
         {dramas.length != 0 ? (
           dramas.map((drama) => (
-            <a href={`/detail/${drama.slug}`} key={drama.slug}>
+            <Link href={`/detail/${drama.slug}`} key={drama.slug}>
               <div className="relative group w-fit">
                 <Card isFooterBlurred className="border-none" radius="lg">
                   <Image
@@ -60,7 +61,7 @@ export default function SearchClient() {
                   </CardFooter>
                 </Card>
               </div>
-            </a>
+            </Link>
           ))
         ) : (
           <AnimateLoading />

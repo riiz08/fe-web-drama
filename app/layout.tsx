@@ -6,6 +6,7 @@ import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import { Link } from "@heroui/link";
 import ButtonTele from "@/components/ButtonTele";
+import LoadingIndicator from "./loading-indicator";
 
 export const metadata: Metadata = {
   title: {
@@ -42,6 +43,7 @@ export default function RootLayout({
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "dark" }}>
+          <LoadingIndicator />
           <Navbar />
           <main className="container mx-auto max-w-7xl  px-6 flex-grow">
             {children}

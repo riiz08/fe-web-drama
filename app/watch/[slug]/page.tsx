@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import AnimateLoading from "@/components/AnimateLoading";
@@ -11,55 +11,16 @@ import AdsterraSocialBar from "@/components/AdsterraSocialBar";
 import AdsterraBanner728x90 from "@/components/AdsterraBanner728x90";
 import DetailDrama from "@/components/DetailDrama";
 import AdsterraPopUnder from "@/components/AdsterraPopUnder";
-
-interface Episode {
-  id: string;
-  slug: string;
-  title: string;
-  videoSrc: string;
-  publishedAt: string;
-}
-
-interface Drama {
-  id: string;
-  slug: string;
-  title: string;
-  description: string;
-  thumbnail: string;
-  tarikhTayangan: string;
-  waktuSiaran: string;
-  rangkaian: string;
-  pengarah: string;
-  produksi: string;
-}
+import { useEpisode } from "@/hooks/useEpisode";
 
 export default function Watch() {
   const { slug } = useParams();
+  const singleSlug = Array.isArray(slug) ? slug[0] : slug;
   const router = useRouter();
 
-  const [episode, setEpisode] = useState<Episode | null>(null);
-  const [nextEpisode, setNextEpisode] = useState<Episode | null>(null);
-  const [prevEpisode, setPrevEpisode] = useState<Episode | null>(null);
-  const [drama, setDrama] = useState<Drama | null>(null);
+  const { episode, nextEpisode, prevEpisode, drama } = useEpisode(singleSlug);
 
-  useEffect(() => {
-    async function fetchEpisode() {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/api/v1/episode/${slug}`
-      );
-      const data = await res.json();
-
-      setEpisode(data.episode);
-      setNextEpisode(data.nextEpisode);
-      setPrevEpisode(data.prevEpisode);
-      setDrama(data.drama);
-    }
-
-    if (slug) fetchEpisode();
-  }, [slug]);
-
-  if (!episode) return <AnimateLoading />;
-  if (!drama) return <AnimateLoading />;
+  if (!episode || !drama) return <AnimateLoading />;
 
   return (
     <div>

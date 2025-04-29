@@ -6,6 +6,7 @@ import AdsterraSocialBar from "./AdsterraSocialBar";
 import Image from "next/image";
 import { Card, CardBody } from "@heroui/card";
 import { Button } from "@heroui/button";
+import Link from "next/link";
 
 interface Episode {
   title: string;
@@ -85,7 +86,7 @@ const DetailDrama: React.FC<DetailDramaProps> = ({ slug }) => {
                           Episode {ep.episodeNumber}: {ep.title}
                         </span>
                         <Button variant="shadow" color="primary">
-                          <a href={`/watch/${ep.slug}`}>Watch</a>
+                          <Link href={`/watch/${ep.slug}`}>Watch</Link>
                         </Button>
                       </div>
                     </CardBody>
