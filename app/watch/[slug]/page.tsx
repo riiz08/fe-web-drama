@@ -9,7 +9,7 @@ import { Card, CardBody } from "@heroui/card";
 import VideoPlayer from "@/components/VideoPlayer";
 import AdsterraSocialBar from "@/components/AdsterraSocialBar";
 import AdsterraBanner728x90 from "@/components/AdsterraBanner728x90";
-import DramaCard from "@/components/DramaDetailCard";
+import DetailDrama from "@/components/DetailDrama";
 
 interface Episode {
   id: string;
@@ -113,7 +113,7 @@ export default function Watch() {
             <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
-        <DramaCard drama={drama} />
+        <DetailDrama slug={drama.slug} />
         <AdsterraBanner728x90 />
         <AdsterraSocialBar />
       </div>

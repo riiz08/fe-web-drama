@@ -1,20 +1,52 @@
-// components/SocialBar.tsx
-import React, { useEffect } from "react";
+"use client";
+
+import { useEffect, useState, useRef } from "react";
 
 const AdsterraSocialBar = () => {
+  const [showSocialBar, setShowSocialBar] = useState(false); // Untuk kontrol Social Bar
+  const [isClicked, setIsClicked] = useState(false); // Untuk memastikan klik pertama
+  const intervalRef = useRef<NodeJS.Timeout | null>(null); // Menyimpan interval untuk Social Bar
+
+  // Fungsi untuk memunculkan Social Bar
+  const showSocialBarAfterInterval = () => {
+    // Menampilkan Social Bar jika belum ditampilkan
+    if (!isClicked) return;
+
+    setShowSocialBar(true);
+
+    // Mengatur interval untuk menampilkan Social Bar setiap 5 menit
+    intervalRef.current = setInterval(() => {
+      setShowSocialBar(true); // Menampilkan Social Bar lagi setiap 5 menit
+    }, 300000); // 300000 ms = 5 menit
+  };
+
+  // Fungsi untuk menangani klik pertama kali
+  const handleClick = () => {
+    if (!isClicked) {
+      setIsClicked(true); // Tandai bahwa sudah di klik pertama kali
+      showSocialBarAfterInterval(); // Mulai interval untuk Social Bar
+    }
+  };
+
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "//comelysouthbuilds.com/6b/61/56/6b61565cfcca3a10ad6fb576bb075de5.js";
-    script.async = true;
-    document.body.appendChild(script);
+    document.addEventListener("click", handleClick);
 
+    // Bersihkan interval saat komponen dibersihkan
     return () => {
-      document.body.removeChild(script);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      document.removeEventListener("click", handleClick);
     };
-  }, []);
+  }, [isClicked]);
 
-  return <div className="social-bar">{/* You can style this container */}</div>;
+  return (
+    <>
+      {showSocialBar && (
+        <div className="social-bar">{/* Style untuk Social Bar */}</div>
+      )}
+    </>
+  );
 };
 
 export default AdsterraSocialBar;

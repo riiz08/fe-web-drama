@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Hls from "hls.js";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
@@ -13,11 +11,28 @@ const VideoPlayer = ({ src }: Props) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const playerRef = useRef<any>(null);
   const hlsRef = useRef<Hls | null>(null);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Function to handle fullscreen change
+  const handleFullscreenChange = () => {
+    if (
+      document.fullscreenElement ||
+      (document as any).webkitFullscreenElement
+    ) {
+      setIsFullscreen(true);
+    } else {
+      setIsFullscreen(false);
+    }
+  };
 
   useEffect(() => {
     const videoElement = videoRef.current;
 
     if (!videoElement || typeof window === "undefined") return;
+
+    // Event listener to detect fullscreen change
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
 
     const initializePlayer = () => {
       if (!playerRef.current) {
@@ -56,8 +71,35 @@ const VideoPlayer = ({ src }: Props) => {
 
       playerRef.current?.dispose();
       playerRef.current = null;
+
+      // Remove event listeners when component is unmounted
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
     };
   }, [src]);
+
+  // Handle orientation change during fullscreen, but only on mobile
+  useEffect(() => {
+    // Check if the device is mobile (e.g., screen width is less than 768px)
+    const isMobile = window.innerWidth < 768;
+
+    if (isMobile && isFullscreen && screen.orientation) {
+      // Lock orientation to portrait if fullscreen on mobile
+      if (screen.orientation && typeof screen.orientation.lock === "function") {
+        (screen.orientation as any)
+          .lock("portrait")
+          .catch((err: any) => console.error(err));
+      }
+    } else {
+      // Unlock orientation when fullscreen is off or not on mobile
+      if (screen.orientation) {
+        screen.orientation.unlock();
+      }
+    }
+  }, [isFullscreen]);
 
   return (
     <div data-vjs-player className="flex justify-center">
