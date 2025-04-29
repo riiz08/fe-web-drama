@@ -11,7 +11,6 @@ const page = () => {
   return (
     <div>
       <AdsterraSocialBar />
-      <AdsterraPopUnder />
       <Slider />
       <DramaLatestUpdate />
       <AllDrama />

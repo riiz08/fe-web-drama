@@ -56,7 +56,7 @@ const DetailDrama: React.FC<DetailDramaProps> = ({ slug }) => {
   return (
     <>
       <AdsterraSocialBar />
-      <div className="min-h-screen px-4 md:px-12 py-8 rounded-md bg-default-50">
+      <div className="min-h-screen my-4 px-4 md:px-12 py-8 rounded-md bg-default-50">
         <div className="flex flex-col lg:flex-row gap-6">
           <Image
             src={drama.thumbnail}
