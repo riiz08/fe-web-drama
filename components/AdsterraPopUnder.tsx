@@ -1,57 +1,34 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
-const AdsterraPopUnder = () => {
-  const triggeredRef = useRef(false); // Untuk mencegah popunder berulang
-  const [showPopunder, setShowPopunder] = useState(false); // Untuk kontrol popunder
-  const intervalRef = useRef<NodeJS.Timeout | null>(null); // Menyimpan interval untuk 5 menit
-
-  // Fungsi untuk memunculkan popunder
-  const triggerPopUnder = () => {
-    if (triggeredRef.current) return; // Menghindari popunder berulang saat sudah ditampilkan
-    triggeredRef.current = true;
-
-    // Menambahkan script popunder
-    const script = document.createElement("script");
-    script.src =
-      "//comelysouthbuilds.com/b2/5a/35/b25a352547c63a8a406bc8114678a2e3.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    // Mengatur agar popunder muncul setiap 5 menit setelah klik pertama
-    intervalRef.current = setInterval(() => {
-      const newScript = document.createElement("script");
-      newScript.src =
-        "//comelysouthbuilds.com/b2/5a/35/b25a352547c63a8a406bc8114678a2e3.js";
-      newScript.async = true;
-      document.body.appendChild(newScript);
-    }, 300000); // 300000 ms = 5 menit
-  };
-
-  // Fungsi untuk handle klik pertama kali
-  const handleClick = () => {
-    // Hanya jalankan jika belum pernah menampilkan popunder
-    if (!triggeredRef.current) {
-      triggerPopUnder();
-      setShowPopunder(true);
-    }
-  };
-
-  // Add event listener untuk klik pertama kali
+export default function AdsterraPopUnder() {
   useEffect(() => {
-    document.addEventListener("click", handleClick);
+    let scriptEl: HTMLScriptElement | null = null;
 
-    // Bersihkan interval jika komponen dibersihkan
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+    const loadScript = () => {
+      if (scriptEl) {
+        document.body.removeChild(scriptEl); // hapus script lama
       }
-      document.removeEventListener("click", handleClick);
+
+      scriptEl = document.createElement("script");
+      scriptEl.type = "text/javascript";
+      scriptEl.src =
+        "//comelysouthbuilds.com/b2/5a/35/b25a352547c63a8a406bc8114678a2e3.js";
+      scriptEl.async = true;
+      document.body.appendChild(scriptEl);
+    };
+
+    loadScript(); // pertama kali load
+    const intervalId = setInterval(loadScript, 10 * 60 * 1000); // setiap 5 menit
+
+    return () => {
+      clearInterval(intervalId);
+      if (scriptEl) {
+        document.body.removeChild(scriptEl);
+      }
     };
   }, []);
 
-  return <>{showPopunder && <div></div>}</>;
-};
-
-export default AdsterraPopUnder;
+  return null;
+}

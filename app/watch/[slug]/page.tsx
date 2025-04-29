@@ -10,6 +10,7 @@ import VideoPlayer from "@/components/VideoPlayer";
 import AdsterraSocialBar from "@/components/AdsterraSocialBar";
 import AdsterraBanner728x90 from "@/components/AdsterraBanner728x90";
 import DetailDrama from "@/components/DetailDrama";
+import AdsterraPopUnder from "@/components/AdsterraPopUnder";
 
 interface Episode {
   id: string;
@@ -115,6 +116,7 @@ export default function Watch() {
         </div>
         <DetailDrama slug={drama.slug} />
         <AdsterraBanner728x90 />
+        <AdsterraPopUnder />
         <AdsterraSocialBar />
       </div>
     </div>
