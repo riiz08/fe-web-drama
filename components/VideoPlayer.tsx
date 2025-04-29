@@ -99,7 +99,6 @@ const VideoPlayer = ({ src }: Props) => {
         className="video-js vjs-big-play-centered w-full max-w-3xl rounded-lg"
         id="video-player"
         playsInline
-        webkit-playsinline="true"
       />
     </div>
   );

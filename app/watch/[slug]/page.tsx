@@ -117,7 +117,6 @@ export default function Watch() {
         <DetailDrama slug={drama.slug} />
         <AdsterraBanner728x90 />
         <AdsterraPopUnder />
-        <AdsterraSocialBar />
       </div>
     </div>
   );
