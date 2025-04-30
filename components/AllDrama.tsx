@@ -5,6 +5,7 @@ import { Card, CardFooter } from "@heroui/card";
 import Image from "next/image";
 import { PlayCircle } from "lucide-react";
 import Link from "next/link";
+import LoadingIndicator from "@/app/loading-indicator";
 
 interface Dramas {
   id: string;
@@ -41,6 +42,7 @@ const AllDrama = () => {
         {dramas !== null ? (
           dramas.map((drama) => (
             <Link href={`/detail/${drama.slug}`} key={drama.slug}>
+              <LoadingIndicator />
               <div className="relative group w-fit">
                 <Card isFooterBlurred className="border-none" radius="lg">
                   <Image

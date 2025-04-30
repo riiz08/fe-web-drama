@@ -8,6 +8,7 @@ import Heading from "@/components/Heading";
 import AnimateLoading from "@/components/AnimateLoading";
 import AdsterraSocialBar from "@/components/AdsterraSocialBar";
 import Link from "next/link";
+import LoadingIndicator from "@/app/loading-indicator";
 
 export default function SearchClient() {
   const searchParams = useSearchParams();
@@ -38,6 +39,7 @@ export default function SearchClient() {
         {dramas.length != 0 ? (
           dramas.map((drama) => (
             <Link href={`/detail/${drama.slug}`} key={drama.slug}>
+              <LoadingIndicator />
               <div className="relative group w-fit">
                 <Card isFooterBlurred className="border-none" radius="lg">
                   <Image

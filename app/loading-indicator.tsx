@@ -1,18 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import AnimateLoading from "@/components/AnimateLoading";
+import { Progress } from "@heroui/progress";
+import { useLinkStatus } from "next/link";
 
 export default function LoadingIndicator() {
-  const pathname = usePathname();
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-    const timeout = setTimeout(() => setLoading(false), 500); // adjust based on animation
-    return () => clearTimeout(timeout);
-  }, [pathname]);
-
-  return loading ? <AnimateLoading /> : null;
+  const { pending } = useLinkStatus();
+  return pending ? (
+    <div className="fixed top-0 left-0 w-full z-50">
+      <Progress
+        isIndeterminate
+        aria-label="Loading..."
+        className="w-full"
+        size="sm"
+      />
+    </div>
+  ) : null;
 }

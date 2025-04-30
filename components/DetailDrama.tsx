@@ -7,6 +7,7 @@ import Image from "next/image";
 import { Card, CardBody } from "@heroui/card";
 import { Button } from "@heroui/button";
 import Link from "next/link";
+import LoadingIndicator from "@/app/loading-indicator";
 
 interface Episode {
   title: string;
@@ -86,7 +87,10 @@ const DetailDrama: React.FC<DetailDramaProps> = ({ slug }) => {
                           Episode {ep.episodeNumber}: {ep.title}
                         </span>
                         <Button variant="shadow" color="primary">
-                          <Link href={`/watch/${ep.slug}`}>Watch</Link>
+                          <Link href={`/watch/${ep.slug}`}>
+                            <LoadingIndicator />
+                            Watch
+                          </Link>
                         </Button>
                       </div>
                     </CardBody>
