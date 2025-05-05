@@ -1,84 +1,62 @@
-"use client";
+// app/watch/[slug]/page.tsx
 
-import React from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
-import AnimateLoading from "@/components/AnimateLoading";
-import { Button } from "@heroui/button";
-import { Card, CardBody } from "@heroui/card";
-import VideoPlayer from "@/components/VideoPlayer";
-import AdsterraSocialBar from "@/components/AdsterraSocialBar";
-import AdsterraBanner728x90 from "@/components/AdsterraBanner728x90";
-import DetailDrama from "@/components/DetailDrama";
-import AdsterraPopUnder from "@/components/AdsterraPopUnder";
-import { useEpisode } from "@/hooks/useEpisode";
+import { Metadata } from "next";
+import WatchClient from "@/components/WatchClient";
 
-export default function Watch() {
-  const { slug } = useParams();
-  const singleSlug = Array.isArray(slug) ? slug[0] : slug;
-  const router = useRouter();
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = await params;
+  try {
+    const res = await fetch(`${process.env.API_URL}/api/v1/episode/${slug}`, {
+      next: { revalidate: 3600 },
+    });
 
-  const { episode, nextEpisode, prevEpisode, drama } = useEpisode(singleSlug);
+    if (!res.ok) throw new Error("Episode not found");
 
-  if (!episode || !drama) return <AnimateLoading />;
+    const data = await res.json();
+    const episode = data.episode;
 
-  return (
-    <div>
-      <AdsterraSocialBar />
-      <div className="p-4 max-w-5xl min-h-screen mx-auto">
-        <Button
-          variant="ghost"
-          color="primary"
-          onPress={() => window.history.back()}
-          className="mb-4"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4" /> Kembali
-        </Button>
+    return {
+      title: episode.title,
+      description:
+        episode.description ||
+        "Tonton semua drama Melayu terkini secara percuma dan cepat.",
+      openGraph: {
+        title: episode.title,
+        description: episode.description,
+        url: `https://mangeakkk.my.id/watch/${slug}`,
+        siteName: "MangEakkk",
+        images: [
+          {
+            url: episode.thumbnail || "https://mangeakkk.my.id/default-og.jpg",
+            width: 800,
+            height: 600,
+            alt: episode.title,
+          },
+        ],
+        type: "video.episode",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: episode.title,
+        description: episode.description,
+        images: [episode.thumbnail || "https://mangeakkk.my.id/default-og.jpg"],
+      },
+    };
+  } catch (error) {
+    return {
+      title: "Tonton Drama Melayu | MangEakkk",
+      description:
+        "Tonton semua drama Melayu terkini secara percuma dan cepat.",
+    };
+  }
+}
 
-        <Card className="mb-4">
-          <CardBody className="p-2 md:p-4">
-            <div className="aspect-video w-full">
-              <VideoPlayer src={episode.videoSrc} />
-            </div>
-          </CardBody>
-        </Card>
+export default async function WatchPage(props: { params: { slug: string } }) {
+  const { slug } = await props.params;
 
-        <h1 className="text-xl font-bold mb-2">{episode.title}</h1>
-        <p className="text-sm text-gray-500 mb-6">
-          Dipublikasikan: {new Date(episode.publishedAt).toLocaleDateString()}
-        </p>
-
-        <div className="flex justify-between items-center">
-          <Button
-            variant="shadow"
-            color="primary"
-            size="sm"
-            isDisabled={!prevEpisode}
-            onPress={() =>
-              prevEpisode && router.push(`/watch/${prevEpisode.slug}`)
-            }
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Prev
-          </Button>
-
-          <Button
-            variant="shadow"
-            color="primary"
-            size="sm"
-            isDisabled={!nextEpisode}
-            onPress={() =>
-              nextEpisode && router.push(`/watch/${nextEpisode.slug}`)
-            }
-          >
-            Next
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-        </div>
-        <DetailDrama slug={drama.slug} />
-        <AdsterraBanner728x90 />
-        <AdsterraPopUnder />
-      </div>
-    </div>
-  );
+  return <WatchClient slug={slug} />;
 }

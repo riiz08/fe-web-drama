@@ -7,14 +7,21 @@ import { Navbar } from "@/components/navbar";
 import { Link } from "@heroui/link";
 import ButtonTele from "@/components/ButtonTele";
 
-export const metadata: Metadata = {
+// app/layout.tsx
+export const metadata = {
   title: {
     default: "MangEakkk - Tonton Drama Melayu",
     template: "%s | MangEakkk",
   },
   description: "Tonton semua drama Melayu terkini secara percuma dan cepat.",
-  icons: {
-    icon: "/favicon.ico",
+  metadataBase: new URL("https://mangeakkk.my.id"),
+  openGraph: {
+    siteName: "MangEakkk",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@mangeakkk",
   },
 };
 
