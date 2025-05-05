@@ -6,9 +6,11 @@ import { Suspense } from "react";
 
 const SearchPage = () => {
   return (
-    <Suspense fallback={<AnimateLoading />}>
-      <SearchClient />
-    </Suspense>
+    <>
+      <Suspense fallback={<AnimateLoading />}>
+        <SearchClient />
+      </Suspense>
+    </>
   );
 };
 

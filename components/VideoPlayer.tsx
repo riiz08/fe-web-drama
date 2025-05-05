@@ -84,9 +84,7 @@ const VideoPlayer = ({ src }: Props) => {
     const isMobile = window.innerWidth < 768;
 
     if (isMobile && isFullscreen && screen.orientation?.lock) {
-      screen.orientation.lock("landscape").catch((err) => {
-        console.warn("Orientation lock failed:", err);
-      });
+      screen.orientation.lock("landscape").catch((err) => {});
     } else {
       screen.orientation?.unlock?.();
     }

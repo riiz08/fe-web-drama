@@ -37,9 +37,9 @@ const DramaList: React.FC<DramaListProps> = ({ dramas }) => {
                   alt={drama.title}
                   className="object-cover h-52 w-44"
                   height={200}
+                  loading="lazy"
                   src={drama.drama.thumbnail}
                   width={200}
-                  priority
                 />
 
                 {/* Play icon - muncul saat hover */}

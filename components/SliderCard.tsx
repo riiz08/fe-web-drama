@@ -28,6 +28,7 @@ const SliderCard = (drama: SliderCardProps) => {
                   as={NextImage}
                   alt="Dia Imamku"
                   className="object-cover"
+                  loading="lazy"
                   shadow="md"
                   src={drama.thumbnail}
                   width={1200}

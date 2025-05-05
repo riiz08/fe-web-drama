@@ -49,9 +49,9 @@ const AllDrama = () => {
                     alt={drama.title}
                     className="object-cover h-52 w-44"
                     height={200}
+                    loading="lazy"
                     src={drama.thumbnail}
                     width={200}
-                    priority
                   />
 
                   {/* Play icon - muncul saat hover */}

@@ -39,18 +39,14 @@ const DramaLatestUpdate = () => {
     if (isMobile === null) return;
 
     const fetchData = async () => {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API}/api/v1/dramas/latest-update?page=${pagination.page}&limit=${pagination.limit}`
-        );
-        const json = await res.json();
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API}/api/v1/dramas/latest-update?page=${pagination.page}&limit=${pagination.limit}`
+      );
+      const json = await res.json();
 
-        if (json.success) {
-          setDramas(json.data.episodes);
-          setPagination(json.data.pagination);
-        }
-      } catch (error) {
-        console.log(error);
+      if (json.success) {
+        setDramas(json.data.episodes);
+        setPagination(json.data.pagination);
       }
     };
 

@@ -16,15 +16,11 @@ export default function SearchClient() {
   const [dramas, setDramas] = useState<DramaItem[]>([]);
 
   const fetchingData = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/api/v1/search?q=${query}`
-      );
-      const result = await response.json();
-      setDramas(result);
-    } catch (error) {
-      console.log(error);
-    }
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API}/api/v1/search?q=${query}`
+    );
+    const result = await response.json();
+    setDramas(result);
   };
 
   useEffect(() => {
@@ -46,9 +42,9 @@ export default function SearchClient() {
                     alt={drama.title}
                     className="object-cover h-52 w-44"
                     height={200}
+                    loading="lazy"
                     src={drama.thumbnail}
                     width={200}
-                    priority
                   />
 
                   {/* Play icon - muncul saat hover */}

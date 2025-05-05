@@ -16,16 +16,12 @@ const Slider = () => {
   const [dramas, setDramas] = useState<DramaItem[]>([]);
 
   const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/api/v1/dramas`
-      );
-      const result = await response.json();
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API}/api/v1/dramas`
+    );
+    const result = await response.json();
 
-      setDramas(result.data);
-    } catch (error) {
-      console.log({ message: error });
-    }
+    setDramas(result.data);
   };
 
   useEffect(() => {

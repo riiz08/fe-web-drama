@@ -30,31 +30,22 @@ interface DetailDramaProps {
 const DetailDrama: React.FC<DetailDramaProps> = ({ slug }) => {
   const [drama, setDrama] = useState<Drama | null>(null);
   const [episodes, setEpisodes] = useState<Episode[] | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDrama = async () => {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API}/api/v1/drama/${slug}`
-        );
-        const result = await res.json();
-        setDrama(result.data.drama);
-        setEpisodes(result.data.episodes);
-      } catch (err) {
-        console.error("Error fetching drama:", err);
-      } finally {
-        setLoading(false);
-      }
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API}/api/v1/drama/${slug}`
+      );
+      const result = await res.json();
+      setDrama(result.data.drama);
+      setEpisodes(result.data.episodes);
     };
 
     fetchDrama();
   }, [slug]);
 
-  if (loading) return <AnimateLoading />;
-  if (!drama) return <div className="p-4">Drama not found.</div>;
-  if (!episodes) return <div className="p-4">Episodes not found.</div>;
-
+  if (!drama) return <AnimateLoading />;
+  if (!episodes) return <AnimateLoading />;
   return (
     <>
       <AdsterraSocialBar />
@@ -65,8 +56,8 @@ const DetailDrama: React.FC<DetailDramaProps> = ({ slug }) => {
             alt={drama.title}
             className="w-full lg:w-1/3 object-cover rounded-2xl shadow"
             height={500}
+            loading="lazy"
             width={1200}
-            priority
           />
           <div className="flex-1">
             <h1 className="text-3xl md:text-5xl font-bold mb-4">

@@ -13,7 +13,6 @@ const SearchInput = () => {
   const handleValue = () => {
     const value = searchRef.current?.value.trim();
     if (!value) {
-      console.log("Input kosong, tidak melakukan aksi.");
       return;
     } else {
       const encoded = value.replace(/ /g, "+");
@@ -26,7 +25,6 @@ const SearchInput = () => {
       const value = searchRef.current?.value.trim();
       if (!value) {
         // Kosong atau hanya spasi
-        console.log("Input kosong, tidak melakukan aksi.");
         return;
       } else {
         const encoded = value.replace(/ /g, "+");
