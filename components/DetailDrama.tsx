@@ -87,6 +87,7 @@ const DetailDrama: React.FC<DetailDramaProps> = ({ slug }) => {
                           Episode {ep.episodeNumber}: {ep.title}
                         </span>
                         <Link href={`/watch/${ep.slug}`}>
+                          <LoadingIndicator />
                           <Button variant="shadow" color="primary" size="md">
                             Watch
                           </Button>

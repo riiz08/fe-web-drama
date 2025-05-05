@@ -1,12 +1,11 @@
 // app/watch/[slug]/page.tsx
 
-import { Metadata } from "next";
 import WatchClient from "@/components/WatchClient";
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
   try {
@@ -47,6 +46,7 @@ export async function generateMetadata({
       },
     };
   } catch (error) {
+    console.log(error);
     return {
       title: "Tonton Drama Melayu | MangEakkk",
       description:
@@ -55,8 +55,12 @@ export async function generateMetadata({
   }
 }
 
-export default async function WatchPage(props: { params: { slug: string } }) {
-  const { slug } = await props.params;
+export default async function WatchPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
   return <WatchClient slug={slug} />;
 }
